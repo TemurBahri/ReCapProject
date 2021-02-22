@@ -9,15 +9,15 @@ using System.Linq.Expressions;
 
 namespace DataAccess.Concrete.InMemory
 {
-    //ICarDal miras alınarak implement edildi
+    
     public class InMemoryCarDal : ICarDal
     {
-        //Car listesini _car değişkeni ile tutyoruz,dependency injection yapmak için.
+        
         List<Car> _car;
-        //constructor
+        
         public InMemoryCarDal()
         {
-            //bellekte Car bilgileri oluşturuldu.
+            
             _car = new List<Car>
             {
                 new Car{CarId=1,BrandId=1,ColorId=1,CarName="ACar", ModelYear="2019", DailyPrice=180000, Description="Son Model"},
@@ -28,23 +28,23 @@ namespace DataAccess.Concrete.InMemory
             };
 
         }
-        //Ekleme
+        
         public void Add(Car car)
         {
             _car.Add(car);
         }
-        //Silme 
+         
         public void Delete(Car car)
         {
-            //Gönderdiğim car id'sine sahip olan listedeki car bul,LINQ
+            
             Car carToDelete = _car.FirstOrDefault(c => c.CarId == car.CarId);
-            //carToDelete içerisinde attığımız değişkeni bulduktan sonra sil
+            
             _car.Remove(carToDelete);
         }
-        //Güncelleme 
+        
         public void Update(Car car)
         {
-            //Gönderdiğim car id sine sahip olan listedeki car bul
+            
             Car carToUpdate = _car.FirstOrDefault(c => c.CarId == car.CarId);
             carToUpdate.BrandId = car.BrandId;
             carToUpdate.ColorId = car.ColorId;
@@ -55,7 +55,7 @@ namespace DataAccess.Concrete.InMemory
         }
 
 
-        //Tüm Car ları listelemek 
+        
         public List<Car> GetAll()
         {
             return _car;
