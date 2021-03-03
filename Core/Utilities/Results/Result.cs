@@ -19,5 +19,6 @@ namespace Core.Utilities.Results
         public bool Succes { get; }
 
         public string Message { get; }
+        public bool Success { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 }

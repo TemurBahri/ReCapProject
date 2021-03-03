@@ -15,8 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities", "Entities\Entiti
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "WebAPI\WebAPI.csproj", "{A1858068-251C-417F-A6B7-3644F795E54D}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Database1", "C:\Users\User\source\repos\Database1\Database1.sqlproj", "{B495E205-58EC-4D28-90CB-B9C333C44116}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,12 +45,6 @@ Global
 		{A1858068-251C-417F-A6B7-3644F795E54D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1858068-251C-417F-A6B7-3644F795E54D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1858068-251C-417F-A6B7-3644F795E54D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B495E205-58EC-4D28-90CB-B9C333C44116}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B495E205-58EC-4D28-90CB-B9C333C44116}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B495E205-58EC-4D28-90CB-B9C333C44116}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{B495E205-58EC-4D28-90CB-B9C333C44116}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B495E205-58EC-4D28-90CB-B9C333C44116}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B495E205-58EC-4D28-90CB-B9C333C44116}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

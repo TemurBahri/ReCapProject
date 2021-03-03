@@ -1,11 +1,13 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using User = Entities.Concrete.User;
 
 namespace Business.Concrete
 {
@@ -18,9 +20,13 @@ namespace Business.Concrete
             _userDal = userDal;
         
         }
+        List<OperationClaim> IUserService.GetClaims(User user)
+        {
+            return _userDal.GetClaims(user);
+        }
         public IResult Add(User user)
         {
-            
+            //Result : IResult inherit
             return new SuccessResult(Messages.UserAdded);
         }
 
@@ -40,11 +46,16 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<User>>(_userDal.GetAll(), Messages.UserListed);
         }
-
         public IResult Update(User user)
         {
             _userDal.Update(user);
             return new SuccessResult(Messages.UserUpdate);
         }
+        public User GetByMail(string email)
+        {
+            return _userDal.Get(u => u.Email == email);
+        }
+
+    
     }
 }

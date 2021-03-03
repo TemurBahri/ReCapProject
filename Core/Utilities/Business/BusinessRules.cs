@@ -18,5 +18,10 @@ namespace Core.Utilities.Business
             }
             return null;
         }
+
+        public static IResult Run(object p)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
