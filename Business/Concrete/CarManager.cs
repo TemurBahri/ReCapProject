@@ -1,6 +1,8 @@
 ﻿using Business.Abstract;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
@@ -37,7 +39,7 @@ namespace Business.Concrete
             
             return new SuccessResult(Messages.CarAdded);
         }
-        
+
         public IResult Delete(Car entity)
         {
             
@@ -53,6 +55,8 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CarDeleted);
         }
 
+
+        [CacheAspect]
         public IDataResult<List<Car>> GetAll()
         {
             if(DateTime.Now.Hour == default)
@@ -68,7 +72,8 @@ namespace Business.Concrete
             
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(x => x.DailyPrice >= min && x.DailyPrice <= max));
         }
-        
+
+        [CacheAspect]
         public IDataResult<Car> GetById(int carId)
         {
             return new SuccessDataResult<Car>(_carDal.Get(c => c.CarId == carId));
@@ -80,6 +85,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarsDetails());
         }
 
+        [CacheAspect]
         public IDataResult< List<Car>> GetCarsByBrandId(int id)
         {
             
@@ -98,6 +104,20 @@ namespace Business.Concrete
         {
             _carDal.Update(entity);
             return new SuccessResult(Messages.CarUpdate);
+        }
+
+        [TransactionScopeAspect]
+        public IResult AddTransactionalTest(Car car)
+        {
+            Add(car);
+
+            if (car.DailyPrice < 30)
+            {
+                throw new Exception("20 birim fiyatını geçemez");
+            }
+            Add(car);
+
+            return null;
         }
     }
 }

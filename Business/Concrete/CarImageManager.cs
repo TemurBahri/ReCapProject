@@ -16,12 +16,12 @@ using System.Text;
 
 namespace Business.Concrete
 {
-    public class CarImageManager : ICarImageService
-    {      
+    public class CarImageManager : ICarImagesService
+    {
 
-        ICarImageDal _carImageDal;
-      
-        public CarImageManager(ICarImageDal carImageDal)
+        ICarImagesDal _carImageDal;
+
+        public CarImageManager(ICarImagesDal carImageDal)
         {
             _carImageDal = carImageDal;
         }
@@ -47,7 +47,7 @@ namespace Business.Concrete
         [ValidationAspect(typeof(CarImagesValidator))]
         public IResult Update(IFormFile file, CarImage carImage)
         {
-            var oldpath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "")) + _carImageDal.Get(p => p.Id == carImage.Id).ImagePath;
+            var oldpath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..\\..\\..\\wwwroot")) + _carImageDal.Get(p => p.Id == carImage.Id).ImagePath;
             carImage.ImagePath = ImagesUploadHelper.UpdateAsync(oldpath, file);
             carImage.Date = DateTime.Now;
             _carImageDal.Update(carImage);
@@ -58,7 +58,7 @@ namespace Business.Concrete
         [ValidationAspect(typeof(CarImagesValidator))]
         public IResult Delete(CarImage carImage)
         {
-            var oldpath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "")) + _carImageDal.Get(p => p.Id == carImage.Id).ImagePath;
+            var oldpath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..\\..\\..\\wwwroot")) + _carImageDal.Get(p => p.Id == carImage.Id).ImagePath;
 
             IResult result = BusinessRules.Run(
                 ImagesUploadHelper.DeleteAsync(oldpath));
@@ -93,7 +93,7 @@ namespace Business.Concrete
 
             return new SuccessDataResult<List<CarImage>>(CheckIfCarImageNull(id).Data);
         }
-       
+        //çek etme şayet image yüklenmemiş ise
         private IDataResult<List<CarImage>> CheckIfCarImageNull(int carId)
         {
             string imagePath = @"\Images\default.jpg";
@@ -106,7 +106,7 @@ namespace Business.Concrete
                     carImage.Add(new CarImage { CarId = carId, ImagePath = imagePath, Date = DateTime.Now });
                     return new SuccessDataResult<List<CarImage>>(carImage);
                 }
-            }        
+            }
             catch (Exception exception)
             {
 
@@ -115,8 +115,8 @@ namespace Business.Concrete
 
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(p => p.CarId == carId).ToList());
         }
-            
-            private IResult CheckIfImageLimit(int carId)
+        //5 limit den büyük e
+        private IResult CheckIfImageLimit(int carId)
         {
             var carImageCount = _carImageDal.GetAll(x => x.CarId == carId).Count;
             if (carImageCount > 5)
@@ -127,6 +127,6 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
-      
+
     }
 }
