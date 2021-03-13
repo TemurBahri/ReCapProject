@@ -17,5 +17,6 @@ namespace Business.Abstract
         IResult Delete(User user);
 
         User GetByMail(string email);
+        object GetClaims(Core.Entities.Concrete.User user);
     }
 }

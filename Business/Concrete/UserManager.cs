@@ -56,6 +56,9 @@ namespace Business.Concrete
             return _userDal.Get(u => u.Email == email);
         }
 
-    
+        public object GetClaims(Core.Entities.Concrete.User user)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
